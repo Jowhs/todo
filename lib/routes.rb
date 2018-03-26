@@ -52,7 +52,6 @@ post '/new/?' do
     redirect request.referer 
 end
 =end
-
 # create list
 post '/new/?' do
     user = User.first(id: session[:user_id])

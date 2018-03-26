@@ -20,6 +20,7 @@
           %nav.navbar.navbar-inverse.navbar-fixed-top{role:'navigation'}
             .navbar-inner
               .container-fluid
+<<<<<<< HEAD
                 .layout
                   .div-left
                     %button.navbar-toggle{data:{toggle:'collapse'}}
@@ -42,6 +43,28 @@
                     %a.navbar-brand{href: url('/logout')}
                       %i.glyphicon.glyphicon-log-out
                       Logout
+=======
+                .navbar-header
+                  %button.navbar-toggle{data:{toggle:'collapse'}}
+                    %span.icon-bar
+                    %span.icon-bar
+                    %span.icon-bar
+                  %a.navbar-brand{href: url('/')}
+                    %i.glyphicon.glyphicon-home
+                    Home
+                  %a.navbar-brand{href: url('/signup')}
+                    %i.glyphicon.glyphicon-user
+                    Signup
+                  %a.navbar-brand{href: url('/login')}
+                    %i.glyphicon.glyphicon-log-in
+                    Login
+                  %a.navbar-brand{href: url('/dashboard')}
+                    %i.glyphicon.glyphicon-dashboard
+                    Dashboard
+                  %a.navbar-brand.logout{href: url('/logout')}
+                    %i.glyphicon.glyphicon-log-out
+                    Logout
+>>>>>>> d971ec23c7d5fdbd21b5fc5f1c07be4db65594fd
           .has-below
           .has-below
           .has-below
