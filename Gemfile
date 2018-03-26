@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'bundler'
+gem 'sinatra', '2.0.1'
+gem 'haml'
+gem 'sequel'
+gem 'mysql2'
+gem 'digest'
+gem 'pry'
+gem 'pry-byebug'
