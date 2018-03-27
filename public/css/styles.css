@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 .layout{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-=======
-.logout{
-  float: right;
->>>>>>> d971ec23c7d5fdbd21b5fc5f1c07be4db65594fd
 }
