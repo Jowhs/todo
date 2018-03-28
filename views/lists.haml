@@ -1,13 +1,20 @@
-%h1 Lists
+%table{:border => 0}
+  %tbody
+    %tr
+      %td 
+        %strong LIST NAME
+    - @lists.each do |list|
+      %tr
+        %td
+          %a{href: "/lists/#{list.id}"}
+            = list.name
+        %td
+          %a{href: "/edit/#{list.id}"} 
+            %button Edit
+        %td
+          %a{href: "/delete/#{list.id}"} 
+            %button Delete
 
-- @lists.each do |list|
-  .list_link
-    %a{href: "/lists/#{list.id}"}
-      = list.name
-    
-      %a{href: "/edit/#{list.id}"} 
-        %button Edit
-      %a{href: "/delete/#{list.id}"}
-        %button Delete
+%br
 %br
 %a{href: "new"} Create a new list

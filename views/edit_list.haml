@@ -4,7 +4,7 @@
     .panel-heading
       %h3.panel-title Edit List
     .panel-body
-      %form.form-horizontal{name: "list", method: "put", action: url("/edit/#{list.id}")}
+      %form.form-horizontal{name: "list", method: "post", action: url("/edit")}
         .form-group
           %label.control-label.col-md-4{for: "name"} List Name
           .col-md-8
@@ -15,7 +15,7 @@
             .col-md-4
               %input.form-control{type: "text", name: "items[][name]", value: "#{item.name}"}
             .col-md-8
-              %textarea.form-control{type: "text", name: "items[][description]", value: "#{item.description}", }
+              %input.form-control{type: "text", name: "items[][description]", value: "#{item.description}"}
           #items_list.form-group
             %a{href: 'javascript:void(0)', id: 'add-item', class: 'col-md-3'} Add Item
           %hr

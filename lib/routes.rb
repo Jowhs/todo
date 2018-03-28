@@ -62,7 +62,6 @@ end
 get '/edit/:id/?' do
     @user = User.first(id: session[:user_id])
     @list = List.first(id: params[:id])
-    @items = @list.items
     can_edit = true
 
     if @list.nil?
@@ -85,7 +84,7 @@ end
 post '/edit/?' do
     @user = User.first(id: session[:user_id])
     List.edit_list params[:id], params[:name], params[:items], @user
-    redirect request.referer
+    redirect '/lists'
 end
 
 post '/permission/?' do
