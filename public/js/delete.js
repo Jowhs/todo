@@ -1,0 +1,1 @@
+jQuery.post("delete" + id, {_method: "delete"}, callback);

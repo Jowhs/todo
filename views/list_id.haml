@@ -1,0 +1,8 @@
+%h1 #{@list.name}
+%h2 
+- @list.items.each do |item|
+  = item.name
+
+
+%br
+%a{href: "/lists"} Back to Lists

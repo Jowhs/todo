@@ -1,10 +1,11 @@
-require 'sinatra' 
+require 'sinatra'
 require 'sequel'
 require 'yaml'
 require 'haml'
 require 'digest'
 require 'pry'
 require 'pry-byebug'
+require 'slim'
 require_relative 'lib/routes'
 
 class Todo < Sinatra::Application
@@ -20,5 +21,3 @@ class Todo < Sinatra::Application
     enable :sessions
     
 end
-
-

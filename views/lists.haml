@@ -2,8 +2,12 @@
 
 - @lists.each do |list|
   .list_link
-    %a{href: "lists/#{list.id}"}
+    %a{href: "/lists/#{list.id}"}
       = list.name
-    %a{href: "edit/#{list.id}"} Edit
+    
+      %a{href: "/edit/#{list.id}"} 
+        %button Edit
+      %a{href: "/delete/#{list.id}"}
+        %button Delete
 %br
 %a{href: "new"} Create a new list

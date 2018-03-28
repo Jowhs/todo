@@ -21,8 +21,8 @@ get '/?' do
 end
 
 get '/dashboard?' do
-    user = User.first(id: session[:user_id])
-    if user.nil?
+    @user = User.first(id: session[:user_id])
+    if @user.nil?
         redirect "/login"
     else
         haml :dashboard
@@ -33,69 +33,70 @@ get '/lists' do
     @lists = List.all
     user = User.first(id: session[:user_id])
     @lists = List.association_join(:permissions).where(user_id: user.id)
-    haml :lists, locals: {lists: @lists}
+    haml :lists
+end
+
+get '/lists/:id' do
+    @user = User.first(id: session[:user_id])
+    @list = List.first(id: params[:id])
+    haml :list_id
 end
 
 get '/new/?' do
-    user = User.first(id: session[:user_id])
-    if user.nil?
+    @user = User.first(id: session[:user_id])
+    if @user.nil?
         redirect "/login"
     else
         haml :new_list
     end
 end
 
-=begin
-post '/new/?' do 
-    user = User.first(name: session[:user_id])
-    List.new_list params[:title], params[:items], user
-    redirect request.referer 
-end
-=end
 # create list
 post '/new/?' do
     user = User.first(id: session[:user_id])
     List.new_list params[:name], params[:items], user
     #list = List.create(params[:name], params[:items], user)
-    redirect "/lists/#{list.id}"
+    redirect "/lists"
 end
 
 get '/edit/:id/?' do
-    list = List.first(id: params[:id])
+    @user = User.first(id: session[:user_id])
+    @list = List.first(id: params[:id])
+    @items = @list.items
     can_edit = true
 
-    if list.nil?
+    if @list.nil?
         can_edit = false
-    elsif list.shared_with == 'public'
-        user = User.first(id: session[:user_id])
-        permission = Permission.first(list: list, user: user)
+    elsif @list.shared_with == 'public'
+        @user = User.first(id: session[:user_id])
+        permission = Permission.first(list: @list, user: @user)
         if permission.nil? or permission.permission_level == 'read_only'
             can_edit = false
         end
     end
 
     if can_edit
-    haml :edit, locals: {list: list}
+    haml :edit_list, locals: {list: @list}
     else
     haml :error, locals: {error: 'Invalid permissions'}
     end
 end
 
 post '/edit/?' do
-    user = User.first(id: session[:user_id])
-    List.edit_list params[:id], params[:name], params[:items], user
+    @user = User.first(id: session[:user_id])
+    List.edit_list params[:id], params[:name], params[:items], @user
     redirect request.referer
 end
 
 post '/permission/?' do
-    user = User.first(id: session[:user_id])
+    @user = User.first(id: session[:user_id])
     list = List.first(id: params[:id])
     can_change_permission = true
 	
     if list.nil?
         can_change_permission = false
     elsif list.shared_with != 'public'
-        permission = Permission.first(list: list, user: user)
+        permission = Permission.first(list: list, user: @user)
         if permission.nil? or permission.permission_level == 'read_only'
             can_change_permission = false
         end
@@ -122,6 +123,12 @@ post '/permission/?' do
  	end
 end
 
+delete '/delete/:id' do
+    @list = List.find_by_id(params[:id])
+    @list.delete
+    redirect "/lists"
+end
+
 get '/signup/?' do
     if session[:user_id].nil?
         haml :signup
@@ -146,11 +153,11 @@ end
 	 
 post '/login/?' do
     md5sum = Digest::MD5.hexdigest params[:password]
-    user = User.first(name: params[:name], password: md5sum)
-    if user.nil?
+    @user = User.first(name: params[:name], password: md5sum)
+    if @user.nil?
         haml :error, locals: {error: 'Invalid login credentials'}
     else
-        session[:user_id] = user.id
+        session[:user_id] = @user.id
         redirect '/dashboard'
     end
 end
