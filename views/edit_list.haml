@@ -15,9 +15,9 @@
         - @list.items.each do |item|
           .form-group.item-group
             .col-md-4
-              %input.form-control{type: "text", name: "items[][id]", value: "#{item.id}"}
+              %input.form-control{type: "hidden", name: "items[][id]", value: "#{item.id}"}
             .col-md-4
-              %input.form-control{type: "text", name: "items[][name]", value: "#{item.name}"}
+              %input.form-control{type: "text", name: "items[][name]", id: "item-left", value: "#{item.name}"}
             .col-md-8
               %input.form-control{type: "text", name: "items[][description]", value: "#{item.description}"}
           #items_list.form-group

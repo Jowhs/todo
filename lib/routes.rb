@@ -1,11 +1,3 @@
-=begin
-before do
-    if !['login', 'signup'].include?(request.path_info.split('/')[1]) and session[:user_id].nil?
-      redirect '/login'
-    end
-  end
-=end
-
 before do
     if !request.path_info.split('/')[1] == 'login' && session[:user_id].nil?
     	redirect '/login'
@@ -82,7 +74,6 @@ get '/edit/:id/?' do
 end
 
 post '/edit/?' do
-    #binding.pry
     @user = User.first(id: session[:user_id])
     list_name = params[:lists][0]['name']
     list_id = params[:lists][0][:id].to_i
@@ -90,7 +81,7 @@ post '/edit/?' do
     redirect '/lists'
 end
 
-post '/permission/?' do
+post '/permission/?' do    
     @user = User.first(id: session[:user_id])
     list = List.first(id: params[:id])
     can_change_permission = true
@@ -125,9 +116,10 @@ post '/permission/?' do
  	end
 end
 
-delete '/delete/:id' do
-    @list = List.find_by_id(params[:id])
-    @list.delete
+get '/delete/:id' do
+    @user = User.first(id: session[:user_id])
+    list_id = params[:id]
+    List.del(list_id)
     redirect "/lists"
 end
 

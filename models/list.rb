@@ -2,7 +2,6 @@ require 'sequel'
 require 'pry'
 require 'pry-byebug'
 
-
 Sequel::Model.plugin :validation_helpers
 class List < Sequel::Model
     set_primary_key :id
@@ -24,8 +23,6 @@ class List < Sequel::Model
     end
 
     def self.edit_list id, name, items, user
-        #binding.pry
-        #list = List.first(id: id)
         list = List[id: id]
         list.name = name
         #list.updated_at = Time.now
@@ -48,12 +45,19 @@ class List < Sequel::Model
                 i.save
             end
         end
-        def validate
-            super
-            validates_presence [:name, :created_at]
-            validates_unique :name
-            validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
-        end
+    end 
+    
+    def self.del list_id  
+        Item.where(:list_id => list_id).delete
+        Permission.where(:list_id => list_id).delete
+        List.where(:id => list_id).delete  
+    end
+
+    def validate
+        super
+        validates_presence [:name, :created_at]
+        validates_unique :name
+        validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
     end
 end
 
