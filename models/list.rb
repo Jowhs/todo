@@ -1,4 +1,8 @@
 require 'sequel'
+require 'pry'
+require 'pry-byebug'
+
+
 Sequel::Model.plugin :validation_helpers
 class List < Sequel::Model
     set_primary_key :id
@@ -20,24 +24,27 @@ class List < Sequel::Model
     end
 
     def self.edit_list id, name, items, user
-        list = List.first(id: id)
+        #binding.pry
+        #list = List.first(id: id)
+        list = List[id: id]
         list.name = name
-        list.updated_at = Time.now
+        #list.updated_at = Time.now
         list.save
         
         items.each do |item|
+            
             if item[:deleted]
                 i = Item.first(item[:id]).destroy
                 next
             end
-            i = Item.first(item[:id])
+            i = Item[item[:id].to_i]
             if i.nil?
-                Item.create(name: item[:name], description: item[:description], list: list, user: user,
+                Item.create(name: item[:name], description: item[:description], list: list, user: @user,
                     created_at: Time.now, updated_at: Time.now)
             else
                 i.name = item[:name]
                 i.description = item[:description]
-                i.updated_at = Time.now
+                #i.updated_at = Time.now
                 i.save
             end
         end

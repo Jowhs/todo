@@ -82,8 +82,11 @@ get '/edit/:id/?' do
 end
 
 post '/edit/?' do
+    #binding.pry
     @user = User.first(id: session[:user_id])
-    List.edit_list params[:id], params[:name], params[:items], @user
+    list_name = params[:lists][0]['name']
+    list_id = params[:lists][0][:id].to_i
+    list = List.edit_list list_id, list_name, params[:items], @user
     redirect '/lists'
 end
 
