@@ -1,12 +1,13 @@
-h1 Lists
+.all-down
+  h1 Lists
 
-- @lists.each do |list|
-  .list_link
-  a href="lists/#{list.id}"
-      = list.name
-  button
-    a href="edit/#{list.id}" Edit
-  button
-    a href="delete/#{list.id}" Delete
-    
-    br a href="new"  Create a new list
+  - @lists.each do |list|
+    .list_link
+      a href="lists/#{list.id}"
+          = list.name
+      button
+        a href="edit/#{list.id}" Edit
+      button
+        a href="delete/#{list.id}" Delete
+  br 
+  a href="new"  Create a new list

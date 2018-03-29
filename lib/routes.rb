@@ -9,7 +9,7 @@ get '/test' do
 end
 
 get '/?' do
-    haml :index
+    slim :index
 end
 
 get '/dashboard?' do
@@ -17,7 +17,7 @@ get '/dashboard?' do
     if @user.nil?
         redirect "/login"
     else
-        haml :dashboard
+        slim :dashboard
     end
 end
 
@@ -25,13 +25,13 @@ get '/lists' do
     @lists = List.all
     user = User.first(id: session[:user_id])
     @lists = List.association_join(:permissions).where(user_id: user.id)
-    haml :lists
+    slim :lists
 end
 
 get '/lists/:id' do
     @user = User.first(id: session[:user_id])
     @list = List.first(id: params[:id])
-    haml :list_id
+    slim :list_id
 end
 
 get '/new/?' do
@@ -39,7 +39,7 @@ get '/new/?' do
     if @user.nil?
         redirect "/login"
     else
-        haml :new_list
+        slim :new_list
     end
 end
 
@@ -67,9 +67,9 @@ get '/edit/:id/?' do
     end
 
     if can_edit
-    haml :edit_list, locals: {list: @list}
+    slim :edit_list, locals: {list: @list}
     else
-    haml :error, locals: {error: 'Invalid permissions'}
+    slim :error, locals: {error: 'Invalid permissions'}
     end
 end
 
@@ -112,7 +112,7 @@ post '/permission/?' do
  	
   	    redirect request.referer
     else
-        haml :error, locals: {error: 'Invalid permissions'}
+        slim :error, locals: {error: 'Invalid permissions'}
  	end
 end
 
@@ -125,9 +125,9 @@ end
 
 get '/signup/?' do
     if session[:user_id].nil?
-        haml :signup
+        slim :signup
     else
-        haml :error, locals: {error: 'Please log out first'}
+        slim :error, locals: {error: 'Please log out first'}
     end
 end
 
@@ -139,17 +139,17 @@ end
 
 get '/login/?' do
     if session[:user_id].nil?
-        haml :login
+        slim :login
     else
-        haml :error, locals: {error: 'Please log out first'}
+        slim :error, locals: {error: 'Please log out first'}
     end
 end
-	 
+ 
 post '/login/?' do
     md5sum = Digest::MD5.hexdigest params[:password]
     @user = User.first(name: params[:name], password: md5sum)
     if @user.nil?
-        haml :error, locals: {error: 'Invalid login credentials'}
+        slim :error, locals: {error: 'Invalid login credentials'}
     else
         session[:user_id] = @user.id
         redirect '/dashboard'

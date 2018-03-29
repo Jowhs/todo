@@ -47,7 +47,7 @@ class List < Sequel::Model
         end
     end 
     
-    def self.del list_id  
+    def self.del list_id
         Item.where(:list_id => list_id).delete
         Permission.where(:list_id => list_id).delete
         List.where(:id => list_id).delete  
