@@ -45,8 +45,8 @@ end
 
 # create list
 post '/new/?' do
-    user = User.first(id: session[:user_id])
-    List.new_list params[:name], params[:items], user
+    @user = User.first(id: session[:user_id])
+    List.new_list params[:name], params[:items], @user
     #list = List.create(params[:name], params[:items], user)
     redirect "/lists"
 end

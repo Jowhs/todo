@@ -23,7 +23,7 @@
             .col-md-2.col-md-offset-3
               button.btn.btn-sm.btn-primary type="submit" 
                 i.glyphicon.glyphicon-ok
-                | Create
+                |  Create
 
   script type="text/template" id='item_template' 
     .form-group.item-group
@@ -37,4 +37,4 @@
     | $(document).on('click', '#add-item', function(){
       | var template_text = $('#item_template').html()
       | $('#items_list').before(template_text);
-  | });
+    });

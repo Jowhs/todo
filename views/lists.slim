@@ -1,13 +1,21 @@
 .all-down
-  h1 Lists
+  table
+    tbody
+      tr
+        td 
+          strong LIST NAME
+      - @lists.each do |list|
+        tr
+          td
+            a href="/lists/#{list.id}"
+              = list.name
+          td
+            a href="/edit/#{list.id}"
+              button Edit
+          td
+            a href="/delete/#{list.id}"
+              button Delete
 
-  - @lists.each do |list|
-    .list_link
-      a href="lists/#{list.id}"
-          = list.name
-      button
-        a href="edit/#{list.id}" Edit
-      button
-        a href="delete/#{list.id}" Delete
-  br 
-  a href="new"  Create a new list
+br
+br
+a href="new" Create a new list

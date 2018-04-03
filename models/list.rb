@@ -45,7 +45,7 @@ class List < Sequel::Model
                 i.save
             end
         end
-    end 
+    end
     
     def self.del list_id
         Item.where(:list_id => list_id).delete

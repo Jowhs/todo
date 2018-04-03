@@ -1,0 +1,10 @@
+.all-down
+  h1 List: #{@list.name}
+  h2 
+    - @list.items.each do |item|
+      = "Item: #{item.name}"
+      br
+      = "Description: #{item.description}"
+
+  br
+  a href="/lists" Back to Lists
