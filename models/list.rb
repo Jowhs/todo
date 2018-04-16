@@ -27,20 +27,20 @@ class List < Sequel::Model
         list.name = name
         #list.updated_at = Time.now
         list.save
-        
+        #binding.pry
         items.each do |item|
-            
             if item[:deleted]
                 i = Item.first(item[:id]).destroy
                 next
             end
             i = Item[item[:id].to_i]
             if i.nil?
-                Item.create(name: item[:name], description: item[:description], list: list, user: @user,
+                Item.create(name: item[:name], description: item[:description], list: list, user: user,
                     created_at: Time.now, updated_at: Time.now)
             else
                 i.name = item[:name]
                 i.description = item[:description]
+                i.starred = item[:starred]
                 #i.updated_at = Time.now
                 i.save
             end
@@ -65,5 +65,6 @@ class Item < Sequel::Model
     set_primary_key :id
 
     many_to_one :user
-    many_to_one :list   
+    many_to_one :list
+
 end

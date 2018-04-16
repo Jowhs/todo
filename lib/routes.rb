@@ -74,12 +74,20 @@ get '/edit/:id/?' do
 end
 
 post '/edit/?' do
+    #binding.pry
     @user = User.first(id: session[:user_id])
     list_name = params[:lists][0]['name']
     list_id = params[:lists][0][:id].to_i
-    list = List.edit_list list_id, list_name, params[:items], @user
+    items = params[:items]
+    list = List.edit_list list_id, list_name, items, @user
     redirect '/lists'
 end
+
+post '/delete/item' do
+    @user = User.first(id: session[:user_id])
+    item = Item.first(id: params[:id]).destroy
+    redirect "/edit/#{item.list.id}"
+end 
 
 post '/permission/?' do    
     @user = User.first(id: session[:user_id])
@@ -159,4 +167,9 @@ end
 get '/logout/?' do
     session[:user_id] = nil
     redirect '/login'
+end
+
+get '/stars' do
+    @user = User.first(id: session[:user_id])
+    slim :stars
 end
