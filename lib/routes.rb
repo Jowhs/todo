@@ -74,7 +74,7 @@ get '/edit/:id/?' do
 end
 
 post '/edit/?' do
-    #binding.pry
+    #   binding.pry
     @user = User.first(id: session[:user_id])
     list_name = params[:lists][0]['name']
     list_id = params[:lists][0][:id].to_i
@@ -152,7 +152,7 @@ get '/login/?' do
         slim :error, locals: {error: 'Please log out first'}
     end
 end
- 
+
 post '/login/?' do
     md5sum = Digest::MD5.hexdigest params[:password]
     @user = User.first(name: params[:name], password: md5sum)

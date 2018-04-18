@@ -25,21 +25,22 @@
                 input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox" /
                 label.form-check-label for="checkbox111"
 
-            form.form-horizontal name="delete_item" method="post" action="/delete/item"
-              input.form-control type="hidden" name="id" value="#{item.id}"
-              button.btn.btn-sm.btn-primary type="submit"
-                i.glyphicon.glyphicon-ok 
-                |  Delete
-              
-              
-          #items_list.form-group
-            a href='javascript:void(0)' id='add-item' class='col-md-3' Add Item    
-          hr
-          .form-group
-            .col-md-2.col-md-offset-3
-              button.btn.btn-sm.btn-primary type="submit"
-                i.glyphicon.glyphicon-ok 
-                |  Update
+              form.form-horizontal name="delete_item" method="post" action="/delete/item"
+                .col-md-offset-2
+                  input.form-control type="hidden" name="id" value="#{item.id}"
+                  button.btn.btn-sm.btn-primary type="submit"
+                    i.glyphicon.glyphicon-ok 
+                    |  Delete
+                hr
+              #items_list.form-group
+                .col-md-10
+                  a href='javascript:void(0)' id='add-item' class='col-md-3' Add Item    
+              hr
+              .form-group
+                .col-md-2.col-md-offset-2
+                  button.btn.btn-sm.btn-primary type="submit"
+                    i.glyphicon.glyphicon-ok 
+                    |  Update
 
   script type="text/template" id='item_template'
     .form-group.item-group

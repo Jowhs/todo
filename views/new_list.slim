@@ -15,7 +15,10 @@
             .col-md-4
               input.form-control type="text" name="items[][name]" placeholder="Item name" 
             .col-md-8
-              textarea.form-control type="text" name="items[][description]" placeholder="Item description" 
+              textarea.form-control type="text" name="items[][description]" placeholder="Item description"
+          .form-group.item-group
+            .col-md-4
+              input.form-control type="date" name="items[][due_date]" value="Time.now"  
           #items_list.form-group
             a href='javascript:void(0)' id='add-item' class='col-md-3'  Add Item
           hr
