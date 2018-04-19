@@ -45,6 +45,7 @@ end
 
 # create list
 post '/new/?' do
+    #binding.pry
     @user = User.first(id: session[:user_id])
     List.new_list params[:name], params[:items], @user
     #list = List.create(params[:name], params[:items], user)

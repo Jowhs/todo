@@ -14,7 +14,7 @@ class List < Sequel::Model
         list = List.create name: name, created_at: Time.now
         items.each do |item|
             Item.create(name: item[:name], description: item[:description], list: list, user: user,
-                created_at: Time.now, updated_at: Time.now)
+                created_at: Time.now, updated_at: Time.now, due_date: item[:due_date])
         end
         Permission.create(list: list, user: user, permission_level: 'read_write', created_at: Time.now,
             updated_at: Time.now)
@@ -59,12 +59,4 @@ class List < Sequel::Model
         validates_unique :name
         validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
     end
-end
-
-class Item < Sequel::Model
-    set_primary_key :id
-
-    many_to_one :user
-    many_to_one :list
-
 end
