@@ -17,13 +17,15 @@
             .form-group.item-group
               .col
                 input.form-control type="hidden" name="items[][id]" value="#{item.id}"
+              .col-md-1
+                input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox" /
               .col-md-4
                 input.form-control type="text" name="items[][name]" value="#{item.name}"
-              .col-md-8
+              .col-md-7
                 input.form-control type="text" name="items[][description]" value="#{item.description}"
-              .form-check.checkbox-rounded.checkbox-success-filled
-                input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox" /
-                label.form-check-label for="checkbox111"
+              .form-group.item-group
+                .col-md-4.col-md-offset-1
+                  input.form-control type="date" name="items[][due_date]" value="#{item.due_date}"
 
               form.form-horizontal name="delete_item" method="post" action="/delete/item"
                 .col-md-offset-2
@@ -35,7 +37,6 @@
               #items_list.form-group
                 .col-md-10
                   a href='javascript:void(0)' id='add-item' class='col-md-3' Add Item    
-              hr
               .form-group
                 .col-md-2.col-md-offset-2
                   button.btn.btn-sm.btn-primary type="submit"
@@ -49,14 +50,12 @@
       .col-md-8
         textarea.form-control type="text" name="items[][description]" placeholder="Item description"
 
-
   javascript:
     $(document).on('click', '#add-item', function(){
       var template_text = $('#item_template').html()
       $('#items_list').before(template_text);
     });
-
   br
   br
 
-  a href="/lists" Back to Lists
+a href="/lists" Back to Lists

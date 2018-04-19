@@ -17,7 +17,7 @@ class Todo < Sinatra::Application
         register Sinatra::Reloader
         env = ENV['RACK_ENV']
         DB = Sequel.connect(YAML.load(File.open('database.yml'))[env])
-        #DB = Sequel.connect("mysql2://root:pass@mysql.getapp.docker/todo")
+        # DB = Sequel.connect("mysql2://root:pass@mysql.getapp.docker/todo")
         Dir[File.join(File.dirname(__FILE__),'models','*.rb')].each { |model| require model } 
     end
 

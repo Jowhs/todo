@@ -27,7 +27,7 @@ class List < Sequel::Model
         list.name = name
         #list.updated_at = Time.now
         list.save
-        #binding.pry
+
         items.each do |item|
             if item[:deleted]
                 i = Item.first(item[:id]).destroy
@@ -36,11 +36,12 @@ class List < Sequel::Model
             i = Item[item[:id].to_i]
             if i.nil?
                 Item.create(name: item[:name], description: item[:description], list: list, user: user,
-                    created_at: Time.now, updated_at: Time.now)
+                    created_at: Time.now, updated_at: Time.now, starred: item[:starred], due_date: item[:due_date])
             else
                 i.name = item[:name]
                 i.description = item[:description]
                 i.starred = item[:starred]
+                i.due_date = item[:due_date]
                 #i.updated_at = Time.now
                 i.save
             end

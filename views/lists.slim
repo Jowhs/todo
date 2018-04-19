@@ -1,21 +1,25 @@
-.all-down
-  table
-    tbody
-      tr
-        td 
-          strong LIST NAME
-      - @lists.each do |list|
-        tr
-          td
-            a href="/lists/#{list.id}"
-              = list.name
-          td
-            a href="/edit/#{list.id}"
-              button Edit
-          td
-            a href="/delete/#{list.id}"
-              button Delete
-
-br
-br
-a href="new" Create a new list
+.col-md-4.col-md-offset-4
+  .all-down
+    .container
+      .row
+        .panel.panel-w.panel-primary
+          .panel-heading
+            h3.panel-title Lists
+          table.table.table-w
+            tbody
+              tr
+                td 
+                  strong LIST NAME
+              - @lists.each do |list|
+                tr
+                  td
+                    a href="/lists/#{list.id}"
+                      = list.name
+                  td
+                    a href="/edit/#{list.id}"
+                      button.btn.btn-warning Edit
+                  td
+                    a href="/delete/#{list.id}"
+                      button.btn.btn-danger Delete
+      br
+      a href="new" Create a new list

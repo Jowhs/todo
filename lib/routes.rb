@@ -29,6 +29,7 @@ get '/lists' do
 end
 
 get '/lists/:id' do
+    #binding.pry
     @user = User.first(id: session[:user_id])
     @list = List.first(id: params[:id])
     slim :list_id
@@ -45,10 +46,10 @@ end
 
 # create list
 post '/new/?' do
-    #binding.pry
+    # binding.pry
     @user = User.first(id: session[:user_id])
     List.new_list params[:name], params[:items], @user
-    #list = List.create(params[:name], params[:items], user)
+    # list = List.create(params[:name], params[:items], user)
     redirect "/lists"
 end
 
@@ -75,7 +76,7 @@ get '/edit/:id/?' do
 end
 
 post '/edit/?' do
-    #   binding.pry
+    binding.pry
     @user = User.first(id: session[:user_id])
     list_name = params[:lists][0]['name']
     list_id = params[:lists][0][:id].to_i
