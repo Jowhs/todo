@@ -1,13 +1,55 @@
-.all-down
-  h1 List: #{@list.name}
-  h2 
-    - @list.items.each do |item|
-      = "Item: #{item.name}"
-      br
-      = "Description: #{item.description}"
-      br
-      br
-      = "Due Date: #{item.due_date.strftime('%d/%m/%Y')}"
+.col-md-8.col-md-offset-4
+  .all-down
+    .row
+      .panel.panel-w.panel-primary
+        .panel-heading
+          h3.panel-title #{@list.name}
+        table.table.table-w.table-bordered
+          thead
+            tr
+              td
+                strong Item
+              td
+                strong Description
+              td
+                strong Date
+              td
+                strong Priority Item
+              td
+                strong Comments
+          tbody
+            - @list.items.each do |item|
+              tr
+                td
+                  - if item.starred
+                    p.clstarred = "#{item.name}"
+                  - else
+                    = "#{item.name}"
+                td
+                  - if item.starred
+                    p.clstarred = "#{item.description}"
+                  - else
+                    = "#{item.description}"
+                td
+                  - if item.starred
+                    - if item.due_date.nil?
+                      p.clstarred No date
+                    - else
+                      p.clstarred = "#{item.due_date.strftime('%Y-%m-%d')}"
+                  - else
+                    - if item.due_date.nil?
+                      p No date
+                    - else
+                      = "#{item.due_date.strftime('%Y-%m-%d')}"
+                td
+                  - if item.starred
+                    p.clstarred Yes
+                  - else
+                    p No
+
+                td
+                  p 
+
 
   br
   a href="/lists" Back to Lists
