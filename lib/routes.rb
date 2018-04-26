@@ -2,10 +2,6 @@ before do
   redirect '/login' if !request.path_info.split('/')[1] == 'login' && session[:user_id].nil?
 end
 
-get '/test' do
-  return 'The application is running'
-end
-
 get '/?' do
   slim :index
 end
@@ -34,6 +30,14 @@ get '/lists/:id' do
   slim :list_id
 end
 
+post '/lists/:id' do
+  # binding.pry
+  @user = User.first(id: session[:user_id])
+  @list = List.first(id: params[:id])
+  Comment.new_comment @list.id, @user.id, params[:comments]
+  redirect "/lists/#{@list.id}"
+end
+
 get '/new/?' do
   @user = User.first(id: session[:user_id])
   if @user.nil?
@@ -49,7 +53,7 @@ post '/new/?' do
   @user = User.first(id: session[:user_id])
   List.new_list params[:name], params[:items], @user
   # list = List.create(params[:name], params[:items], user)
-  redirect "/lists"
+  redirect '/lists'
 end
 
 get '/edit/:id/?' do
@@ -83,7 +87,24 @@ post '/edit/?' do
   redirect '/lists'
 end
 
-post '/delete/item' do
+# this route allows delete lists
+get '/delete/:id' do
+  # binding.pry
+  @user = User.first(id: session[:user_id])
+  list_id = params[:id]
+  List.del(list_id)
+  redirect '/lists'
+end
+
+get '/delete/comment/:id' do
+  @user = User.first(id: session[:user_id])
+  comment_id = params[:id]
+  Comment.del_comment(comment_id)
+  redirect "/lists/#{@list.id}"
+end
+
+post '/edit/:id' do
+  # binding.pry
   @user = User.first(id: session[:user_id])
   item = Item.first(id: params[:id]).destroy
   redirect "/edit/#{item.list.id}"
@@ -118,13 +139,6 @@ post '/permission/?' do
   else
     slim :error, locals: { error: 'Invalid permissions' }
   end
-end
-
-get '/delete/:id' do
-  @user = User.first(id: session[:user_id])
-  list_id = params[:id]
-  List.del(list_id)
-  redirect '/lists'
 end
 
 get '/signup/?' do
@@ -163,9 +177,4 @@ end
 get '/logout/?' do
   session[:user_id] = nil
   redirect '/login'
-end
-
-get '/stars' do
-  @user = User.first(id: session[:user_id])
-  slim :stars
 end

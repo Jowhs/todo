@@ -1,8 +1,14 @@
 .all-down
-  h1  Welcome #{@user.name}
-
-  a href="new" Create a new list
-  br
-  a href="lists" Show lists
-  br
-  a href="logout" Logout
+  .container
+    .row.justify-content-center
+      h1 Welcome #{@user.name}
+      br/
+      br
+      .list-group
+        .col-md-4
+          a.list-group-item.list-group-item-action.list-group-item-warning.text-center style="width: 300px;" href="new" 
+            h3.fa.fa-plus style="font-size: 24px;"  Create a new list
+        
+        .col-md-4
+          a.list-group-item.list-group-item-action.list-group-item-success.text-center style="width: 300px;" href="lists" 
+            h3.fa.fa-bars style="font-size: 24px;"  Show lists

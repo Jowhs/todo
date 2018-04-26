@@ -16,3 +16,9 @@
 .clstarred {
   color: red;
 }
+
+.show-img {
+  width: 150px;
+  height: 150px;
+  margin-left: 105px;
+}

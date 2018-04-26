@@ -1,10 +1,10 @@
-.col-md-8.col-md-offset-4
-  .all-down
+.all-down
+  .container
     .row
-      .panel.panel-w.panel-primary
+      .panel.panel-info
         .panel-heading
           h3.panel-title #{@list.name}
-        table.table.table-w.table-bordered
+        table.table.table-w.table-bordered.table-hover.table-responsive
           thead
             tr
               td
@@ -15,8 +15,6 @@
                 strong Date
               td
                 strong Priority Item
-              td
-                strong Comments
           tbody
             - @list.items.each do |item|
               tr
@@ -47,9 +45,27 @@
                   - else
                     p No
 
-                td
-                  p 
+      form.form-horizontal name="comment" method="post" action="/lists/#{@list.id}"
+        .form-group
+          label.control-label.col-md-1 for="comment" Comment:
+          .col-md-12
+            textarea.form-control rows="5" name="comments"
 
+        .form-group
+          .col-md-2
+            button.btn.btn-sm.btn-primary type="submit"
+              i.glyphicon.glyphicon-ok 
+              |  Add Comment
 
-  br
-  a href="/lists" Back to Lists
+      
+      - @list.comments.each do |comment|
+        .alert.alert-success.alert-dismissable role="alert" style="width: 500px;"
+          = comment.comment
+          button.close type="button" data-dismiss="alert"
+        
+          //a href="/delete/comment/#{comment_id}}"
+            button.btn.btn-danger Delete
+        br
+
+    br
+    a href="/lists" Back to Lists

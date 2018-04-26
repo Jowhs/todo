@@ -16,37 +16,41 @@
             hr
             
             - list.items.each do |item|
-              
               .form-group.item-group
+                .col
+                  input.form-control type="hidden" name="items[][id]" value="#{item.id}"
                 .col-md-1
                   - if item.starred 
                     input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox" checked=true
                   - else
                     input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox"
                 strong Priority Item
-              .form-group.item-group
-                .col
-                  input.form-control type="hidden" name="items[][id]" value="#{item.id}"
-                .col-md-4
+                br/
+                br
+                
+                .col-md-3
                   input.form-control type="text" name="items[][name]" value="#{item.name}"
-                .col-md-8
+                .col-md-7
                   input.form-control type="text" name="items[][description]" value="#{item.description}"
                 br
                 br
+
               .form-group.item-group
                 .col-md-4
                   - if item.due_date
-                    input.form-control type="date" name="items[][due_date]" value="#{item.due_date.strftime('%Y-%m-%d')}"
+                    input.form-control type="date" name="items[][due_date]" min="#{Time.now.strftime('%Y-%m-%d')}" value="#{item.due_date.strftime('%Y-%m-%d')}"
                   - else
-                    input.form-control type="date" name="items[][due_date]" value="#{item.due_date}"
+                    input.form-control type="date" name="items[][due_date]" min="#{Time.now.strftime('%Y-%m-%d')}" value="#{item.due_date}"
+                br/
+                br
+                br
                 
-                br
-                br
-                .form-group.item-group.text-center
-                  a href="/delete/#{list.id}"
-                      button.btn.btn-danger Delete
+                .col-md-1
+                  input#checkbox111.filled-in.form-check-input name="items[][deleted]" type="checkbox"
+                strong Delete
               hr
-            
+
+
             #items_list.form-group
               .col-md-10
                 a href='javascript:void(0)' id='add-item' class='col-md-3' Add Item
@@ -59,19 +63,29 @@
                   i.glyphicon.glyphicon-ok 
                   |  Update
 
+      a href="/lists" Back to Lists
+
   script type="text/template" id='item_template'
     .form-group.item-group
+      .col-md-1
+        input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox"
+      strong Priority Item
+      br/
+      br 
       .col-md-4
         input.form-control type="text" name="items[][name]" placeholder="Item name"
-      .col-md-8
+      .col-md-7
         input.form-control type="text" name="items[][description]" placeholder="Item description"
     .form-group.item-group
       .col-md-4
-        input.form-control type="date" name="items[][due_date]"
-    br
-    br
-    br
-
+        input.form-control type="date" min="Time.now" name="items[][due_date]"
+      br/
+      br/
+      br
+      .col-md-1
+        input#checkbox111.filled-in.form-check-input type="checkbox"
+      strong Delete
+      hr
   javascript:
     $(document).on('click', '#add-item', function(){
       var template_text = $('#item_template').html()
@@ -80,4 +94,4 @@
   br
   br
 
-a href="/lists" Back to Lists
+      

@@ -5,4 +5,10 @@ class Item < Sequel::Model
 
   many_to_one :user
   many_to_one :list
+
+  def validate
+    super
+    validates_presence %i{name description due_date created_at}
+    # validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
+  end
 end

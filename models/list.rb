@@ -10,6 +10,7 @@ class List < Sequel::Model
   one_to_many :items, eager: [:user]
   one_to_many :permissions
   one_to_many :logs
+  one_to_many :comments
 
   def self.new_list(name, items, user)
     list = List.create name: name, created_at: Time.now
@@ -19,7 +20,6 @@ class List < Sequel::Model
     end
     Permission.create(list: list, user: user, permission_level: 'read_write',\
                       created_at: Time.now, updated_at: Time.now)
-
     list
   end
 
@@ -28,10 +28,10 @@ class List < Sequel::Model
     list.name = name
     # list.updated_at = Time.now
     list.save
-
+    # binding.pry
     items.each do |item|
       if item[:deleted]
-        Item.first(item[:id]).destroy
+        Item.first(id: item[:id].to_i).destroy
         next
       end
       i = Item[item[:id].to_i]
