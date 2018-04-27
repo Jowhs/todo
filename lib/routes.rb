@@ -97,10 +97,12 @@ get '/delete/:id' do
 end
 
 get '/delete/comment/:id' do
+  # binding.pry
   @user = User.first(id: session[:user_id])
-  comment_id = params[:id]
+  # list_id = params[id: list_id].to_i
+  comment_id = params[:id].to_i
   Comment.del_comment(comment_id)
-  redirect "/lists/#{@list.id}"
+  redirect '/lists'
 end
 
 post '/edit/:id' do

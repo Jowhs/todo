@@ -57,14 +57,15 @@
               i.glyphicon.glyphicon-ok 
               |  Add Comment
 
-      
       - @list.comments.each do |comment|
         .alert.alert-success.alert-dismissable role="alert" style="width: 500px;"
           = comment.comment
           button.close type="button" data-dismiss="alert"
         
-          //a href="/delete/comment/#{comment_id}}"
-            button.btn.btn-danger Delete
+        a href="/delete/comment/#{comment.id}"
+          button.btn.btn-danger Delete
+        br
+        br/
         br
 
     br

@@ -10,6 +10,6 @@ class Comment < Sequel::Model
   end
 
   def self.del_comment(comment_id)
-    Comment.where(comment_id: comment_id).delete
+    Comment.where(id: comment_id).delete
   end
 end

@@ -62,7 +62,7 @@ class List < Sequel::Model
   def validate
     super
     validates_presence %i{name created_at}
-    validates_unique :name
+    # validates_unique :name, message: 'this name exists'
     validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
   end
 end
