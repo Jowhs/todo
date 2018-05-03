@@ -49,5 +49,8 @@ html
           .has-below
 
         .row
+          - (flash || {}).each do |key, message| # success, info, warning, danger
+            .alert.alert-#{key}
+              = message
 
         == yield

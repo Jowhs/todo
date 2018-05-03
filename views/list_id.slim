@@ -1,4 +1,5 @@
 .all-down
+  - @comment ||= Comment.new
   .container
     .row
       .panel.panel-info
@@ -16,7 +17,7 @@
               td
                 strong Priority Item
           tbody
-            - @list.items.each do |item|
+            - @ordered_list.each do |item|
               tr
                 td
                   - if item.starred
@@ -50,7 +51,7 @@
           label.control-label.col-md-1 for="comment" Comment:
           .col-md-12
             textarea.form-control rows="5" name="comments"
-
+        
         .form-group
           .col-md-2
             button.btn.btn-sm.btn-primary type="submit"
@@ -58,12 +59,16 @@
               |  Add Comment
 
       - @list.comments.each do |comment|
-        .alert.alert-success.alert-dismissable role="alert" style="width: 500px;"
-          = comment.comment
-          button.close type="button" data-dismiss="alert"
-        
-        a href="/delete/comment/#{comment.id}"
-          button.btn.btn-danger Delete
+        .row
+          .col-md-10
+            .alert.alert-success.alert-dismissable role="alert" style="width: 500px;"
+              = comment.comment
+              button.close type="button" data-dismiss="alert"
+              br/
+              = comment.created_at.strftime('%m/%d/%Y %I:%M%p')
+          .col-md-2
+            a href="/delete/comment/#{comment.id}"
+              button.btn.btn-danger Delete
         br
         br/
         br

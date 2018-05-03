@@ -12,4 +12,9 @@ class Comment < Sequel::Model
   def self.del_comment(comment_id)
     Comment.where(id: comment_id).delete
   end
+
+  def validate
+    super
+    validates_presence :comment, message: 'Comments field cannot be empty'
+  end
 end

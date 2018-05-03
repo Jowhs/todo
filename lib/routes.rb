@@ -27,6 +27,7 @@ get '/lists/:id' do
   # binding.pry
   @user = User.first(id: session[:user_id])
   @list = List.first(id: params[:id])
+  @ordered_list = @list.items_dataset.order(Sequel.desc(:starred))
   slim :list_id
 end
 
@@ -99,18 +100,20 @@ end
 get '/delete/comment/:id' do
   # binding.pry
   @user = User.first(id: session[:user_id])
-  # list_id = params[id: list_id].to_i
   comment_id = params[:id].to_i
-  Comment.del_comment(comment_id)
-  redirect '/lists'
+  current_date = Time.now
+  comment = Comment.where(id: comment_id).first
+  creation_date = comment.created_at
+  Comment.del_comment(comment_id) if current_date < creation_date + 15 * 60
+  redirect "/lists/#{comment.list_id}"
 end
 
-post '/edit/:id' do
-  # binding.pry
-  @user = User.first(id: session[:user_id])
-  item = Item.first(id: params[:id]).destroy
-  redirect "/edit/#{item.list.id}"
-end
+# post '/edit/:id' do
+# binding.pry
+#  @user = User.first(id: session[:user_id])
+#  item = Item.first(id: params[:id]).destroy
+#  redirect "/edit/#{item.list.id}"
+# end
 
 post '/permission/?' do
   @user = User.first(id: session[:user_id])

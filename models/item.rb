@@ -8,7 +8,7 @@ class Item < Sequel::Model
 
   def validate
     super
-    validates_presence %i{name description due_date created_at}
-    # validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
+    validates_presence %i{name description due_date}, message: 'cannot be empty'
+    validates_format /\A[A-Za-z]/, :name, message: 'is not a valid name'
   end
 end

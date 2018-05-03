@@ -20,7 +20,7 @@
                 .col
                   input.form-control type="hidden" name="items[][id]" value="#{item.id}"
                 .col-md-1
-                  - if item.starred 
+                  - if item.starred
                     input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox" checked=true
                   - else
                     input#checkbox111.filled-in.form-check-input name="items[][starred]" type="checkbox"
@@ -82,8 +82,9 @@
       br/
       br/
       br
+
       .col-md-1
-        input#checkbox111.filled-in.form-check-input type="checkbox"
+        input.filled-in.form-check-input type="checkbox"
       strong Delete
       hr
   javascript:
